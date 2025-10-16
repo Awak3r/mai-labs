@@ -237,9 +237,6 @@ bool Six::menshe(const Six& other) const{
 
 
 Six::~Six() noexcept{
-    if (dataArray != nullptr){
-        delete[] dataArray;
-        dataArray = nullptr;
-    }
+    delete[] dataArray;
     arraySize = 0;
 }
