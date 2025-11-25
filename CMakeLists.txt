@@ -1,32 +1,31 @@
-
 cmake_minimum_required(VERSION 3.10)
 project(task4)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Исходные файлы
+include_directories(${PROJECT_SOURCE_DIR}/include)
 
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror=maybe-uninitialized")
-
-
-include(FetchContent)
-FetchContent_Declare(
-  googletest
-  GIT_REPOSITORY https://github.com/google/googletest.git
-  GIT_TAG v1.15.0
-  TLS_VERIFY false
+# Основной исполняемый файл
+add_executable(main
+    main.cpp
 )
 
-add_library(${CMAKE_PROJECT_NAME}_lib src/six.cpp)
-add_executable(${CMAKE_PROJECT_NAME}_exe main.cpp)
+# Google Test
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
 
-target_link_libraries(${CMAKE_PROJECT_NAME}_exe PRIVATE ${CMAKE_PROJECT_NAME}_lib)
+# Тесты
+add_executable(run_tests
+    test/tests01.cpp
+)
 
+target_link_libraries(run_tests
+    ${GTEST_LIBRARIES}
+    pthread
+)
 
+# Включаем тестирование
 enable_testing()
-
-add_executable(tests test/tests01.cpp)
-target_link_libraries(tests ${CMAKE_PROJECT_NAME}_lib gtest_main gtest)
-
-add_test(NAME GrowCounterTests COMMAND tests)
+add_test(NAME FigureTests COMMAND run_tests)
