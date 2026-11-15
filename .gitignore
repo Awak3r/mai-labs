@@ -1,0 +1,26 @@
+# Out-of-source CMake builds (including legacy nested build directories)
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+Testing/
+
+# Compiled artifacts
+*.o
+*.obj
+*.a
+*.so
+*.so.*
+*.dll
+*.exe
+a.out
+
+# Editors and OS metadata
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local credentials; historical trace logs and test data stay tracked
+.env
+.env.local
